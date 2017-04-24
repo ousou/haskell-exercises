@@ -62,7 +62,7 @@ fizzbuzz n
 
 isZero :: Integer -> Bool
 isZero 0 = True
-isZero n = False
+isZero _ = False
 
 -- Ex 8: implement using recursion a function sumTo such that
 --   sumTo n
@@ -76,7 +76,7 @@ sumTo n = n + sumTo (n -1)
 -- Use recursion.
 
 power :: Integer -> Integer -> Integer
-power n 0 = 1
+power _ 0 = 1
 power n k = n * power n (k - 1)
 
 -- Ex 10: ilog2 n should be the number of times you can halve the
@@ -99,7 +99,9 @@ ilog2 n = 1 + ilog2 (div n 2)
 -- Hint! pattern matching is your friend.
 
 binomial :: Integer -> Integer -> Integer
-binomial = undefined
+binomial _ 0 = 1
+binomial 0 _ = 0
+binomial n k = binomial (n-1) k + binomial (n-1) (k-1)
 
 -- Ex 12: The tribonacci numbers are defined by the equations
 --
