@@ -180,7 +180,11 @@ funnyMin a b = case funnyCompare a b of LT -> a
 -- * you'll need a (recursive) helper function
 
 pyramid :: Integer -> String
-pyramid = undefined
+pyramid n = pyramidHelper (n - 1) (show n)
+
+pyramidHelper :: Integer -> String -> String
+pyramidHelper (-1) currstring = currstring
+pyramidHelper n currstring = pyramidHelper (n - 1) (show n ++ "," ++ currstring ++ "," ++ show n)
 
 -- Ex 17: implement the function smallestDivisor that returns the
 -- smallest number (greater than 1) that divides the given number.
@@ -195,7 +199,13 @@ pyramid = undefined
 -- remember this in the next exercise!
 
 smallestDivisor :: Integer -> Integer
-smallestDivisor = undefined
+smallestDivisor n = smallestDivisorHelper n 2
+
+
+smallestDivisorHelper :: Integer -> Integer -> Integer
+smallestDivisorHelper n k
+    | mod n k == 0 = k
+    | otherwise = smallestDivisorHelper n (k + 1)
 
 -- Ex 18: implement a function isPrime that checks if the given number
 -- is a prime number. Use the function smallestDivisor.
@@ -203,11 +213,15 @@ smallestDivisor = undefined
 -- Ps. 0 and 1 are not prime numbers
 
 isPrime :: Integer -> Bool
-isPrime = undefined
+isPrime 0 = False
+isPrime 1 = False
+isPrime n = smallestDivisor n == n
 
 -- Ex 19: implement a function nextPrime that returns the first prime
 -- number that comes after the given number. Use the function isPrime
 -- you just defined.
 
 nextPrime :: Integer -> Integer
-nextPrime = undefined
+nextPrime n
+    | isPrime (n + 1) = n + 1
+    | otherwise = nextPrime (n + 1)
