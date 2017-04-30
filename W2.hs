@@ -41,10 +41,17 @@ measure ss = length ss
 -- Ex 3: define the function takeFinal, which returns the n last
 -- elements of the given list.
 
-takeFinal :: Int -> [Int] -> [Int]
+takeFinal :: Int -> [a] -> [a]
 takeFinal n xs
-    | n == length xs = xs
+    | n >= length xs = xs
     | otherwise = takeFinal n (tail xs)
+
+-- Ex 3.5: takeFirst - returns the n first elements of the list
+
+takeFirst :: Int -> [a] -> [a]
+takeFirst n xs
+    | n >= length xs = xs
+    | otherwise = takeFirst n (init xs)
 
 -- Ex 4: remove the nth element of the given list. More precisely,
 -- return a list that is identical to the given list except the nth
@@ -59,7 +66,8 @@ takeFinal n xs
 -- The [a] in the type signature means "a list of any type"
 
 remove :: Int -> [a] -> [a]
-remove i xs = undefined
+remove 0 xs = tail xs
+remove n xs = takeFirst n xs ++ takeFinal (length xs - n - 1) xs
 
 -- Ex 5: substring i n s should return the length n substring of s
 -- starting at index i.
