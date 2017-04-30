@@ -42,7 +42,9 @@ measure ss = length ss
 -- elements of the given list.
 
 takeFinal :: Int -> [Int] -> [Int]
-takeFinal n xs = undefined
+takeFinal n xs
+    | n == length xs = xs
+    | otherwise = takeFinal n (tail xs)
 
 -- Ex 4: remove the nth element of the given list. More precisely,
 -- return a list that is identical to the given list except the nth
