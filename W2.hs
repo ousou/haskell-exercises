@@ -105,6 +105,11 @@ mymax measure a b
     | measure a > measure b = a
     | otherwise = b
 
+isSorted :: (Ord a) => [a] -> Int
+isSorted xs
+    | xs == sort xs = 1
+    | otherwise = 0
+
 -- Ex 7: countSorted receives a list of strings and returns a count of
 -- how many of the strings are in alphabetical order (i.e. how many of
 -- the strings have their letters in alphabetical order)
@@ -112,7 +117,8 @@ mymax measure a b
 -- Remember the functions length, filter and sort
 
 countSorted :: [String] -> Int
-countSorted ss = undefined
+countSorted [] = 0
+countSorted ss = isSorted (head ss) + countSorted (tail ss)
 
 -- Ex 8: Implement a function funny, that
 --  - takes in a list of strings
