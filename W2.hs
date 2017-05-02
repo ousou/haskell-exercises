@@ -69,13 +69,23 @@ remove :: Int -> [a] -> [a]
 remove 0 xs = tail xs
 remove n xs = takeFirst n xs ++ takeFinal (length xs - n - 1) xs
 
+
+removeFirst :: Int -> [a] -> [a]
+removeFirst 0 xs = xs
+removeFirst n xs = removeFirst (n - 1) (tail xs)
+
+removeFinal :: Int -> [a] -> [a]
+removeFinal 0 xs = xs
+removeFinal n xs = removeFinal (n - 1) (init xs)
+
 -- Ex 5: substring i n s should return the length n substring of s
 -- starting at index i.
 --
 -- Remember that strings are lists!
 
 substring :: Int -> Int -> String -> String
-substring i n s = undefined
+substring _ 0 _ = ""
+substring i n s = removeFirst i (removeFinal (length s - (i + n)) s)
 
 -- Ex 6: implement the function mymax that takes as argument a
 -- measuring function (of type a -> Int) and two values (of type a).
