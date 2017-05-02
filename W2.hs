@@ -101,7 +101,9 @@ substring i n s = removeFirst i (removeFinal (length s - (i + n)) s)
 --  mymax head   [1,2,3] [4,5]  ==>  [4,5]
 
 mymax :: (a -> Int) -> a -> a -> a
-mymax measure a b = undefined
+mymax measure a b
+    | measure a > measure b = a
+    | otherwise = b
 
 -- Ex 7: countSorted receives a list of strings and returns a count of
 -- how many of the strings are in alphabetical order (i.e. how many of
