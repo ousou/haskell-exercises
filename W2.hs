@@ -149,7 +149,10 @@ funny ss = unwords (map (map toUpper) (filter (\xs -> length xs > 5) ss))
 -- PS. yes if you want to nit-pick this isn't really quicksort :)
 
 quicksort :: [Int] -> [Int]
-quicksort xs = undefined
+quicksort [] = []
+quicksort (x:xs) = lowerSorted ++ [x] ++ upperSirted
+    where lowerSorted = quicksort (filter (<=x) xs)
+          upperSirted = quicksort (filter (>x) xs)
 
 -- Ex 10: powers k max should return all the powers of k that are less
 -- than or equal to max. For example:
