@@ -205,7 +205,7 @@ fromTo n k
 -- Ps. you'll probably need a recursive helper function
 
 sums :: Int -> [Int]
-sums i = undefined
+sums i = take i (map (sum . fromTo 1) [1..])
 
 -- Ex 14: using list pattern matching and recursion, define a function
 -- mylast that returns the last value of the given list. For an empty
