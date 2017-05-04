@@ -166,7 +166,7 @@ quicksort (x:xs) = lowerSorted ++ [x] ++ upperSirted
 --   * the function takeWhile
 
 powers :: Int -> Int -> [Int]
-powers n max = undefined
+powers n maxval = takeWhile (<=maxval) (map (n^) [0..])
 
 -- Ex 11: implement a search function that takes an updating function,
 -- a checking function and an initial value. Search should repeatedly
