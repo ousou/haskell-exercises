@@ -260,7 +260,7 @@ sumsOfHelper (x:xs) currsum = (x + currsum):sumsOfHelper xs (x + currsum)
 
 mymaximum :: (a -> a -> Ordering) -> a -> [a] -> a
 mymaximum _ def [] = def
-mymaximum cmp def (x:xs) = returnLarger cmp x (mymaximum cmp x xs)
+mymaximum cmp _ (x:xs) = returnLarger cmp x (mymaximum cmp x xs)
 
 returnLarger :: (a -> a -> Ordering) -> a -> a -> a
 returnLarger cmp a b
