@@ -186,8 +186,10 @@ powers n maxval = takeWhile (<=maxval) (map (n^) [0..])
 --   in search tail check "xyzAvvt"
 --     ==> Avvt
 
-search :: (a->a) -> (a->Bool) -> a -> a
-search update check initial = undefined
+search :: (a -> a) -> (a -> Bool) -> a -> a
+search update check initial
+    | check initial = initial
+    | otherwise = search update check (update initial)
 
 -- Ex 12: given numbers n and k, build the list of numbers n,n+1..k.
 -- Use recursion and the : operator to build the list.
