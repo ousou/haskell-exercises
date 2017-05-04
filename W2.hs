@@ -224,7 +224,9 @@ mylast _ (x:xs) = mylast x xs
 -- library list functions.
 
 sorted :: [Int] -> Bool
-sorted xs = undefined
+sorted [] = True
+sorted [_] = True
+sorted (x:y:xs) = (x <= y) && sorted (y:xs)
 
 -- Ex 16: compute the partial sums of the given list like this:
 --
