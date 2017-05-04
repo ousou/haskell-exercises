@@ -235,7 +235,12 @@ sorted (x:y:xs) = (x <= y) && sorted (y:xs)
 --   sumsOf []       ==>  []
 
 sumsOf :: [Int] -> [Int]
-sumsOf xs = undefined
+sumsOf [] = []
+sumsOf xs = sumsOfHelper xs 0
+
+sumsOfHelper :: [Int] -> Int -> [Int]
+sumsOfHelper [] _ = []
+sumsOfHelper (x:xs) currsum = (x + currsum):sumsOfHelper xs (x + currsum)
 
 -- Ex 17: define the function mymaximum that takes a list and a
 -- comparing function of type a -> a -> Ordering and returns the
