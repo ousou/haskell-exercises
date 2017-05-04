@@ -335,4 +335,8 @@ interpreterHelper a b commands output
 -- Remember, the function show transforms a number to a string.
 
 squares :: Int -> [Integer]
-squares n = undefined
+squares n = take n (filter lastSameAsFirst (map (^2) [1..]))
+
+lastSameAsFirst :: Integer -> Bool
+lastSameAsFirst i = head s == last s
+    where s = show i
