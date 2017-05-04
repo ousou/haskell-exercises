@@ -133,7 +133,7 @@ countSorted ss = isSorted (head ss) + countSorted (tail ss)
 --  - intercalate               from the module Data.List
 
 funny :: [String] -> String
-funny strings = undefined
+funny ss = unwords (map (map toUpper) (filter (\xs -> length xs > 5) ss))
 
 -- Ex 9: implement quicksort. Quicksort is a recursive sorting
 -- algorithm that works like this.
