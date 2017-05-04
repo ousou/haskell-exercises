@@ -277,7 +277,9 @@ returnLarger cmp a b
 -- name.
 
 map2 :: (a -> b -> c) -> [a] -> [b] -> [c]
-map2 f as bs = undefined
+map2 _ [] _ = []
+map2 _ _ [] = []
+map2 f (a:as) (b:bs) = f a b:map2 f as bs
 
 -- Ex 19: in this exercise you get to implement an interpreter for a
 -- simple language. The language controls two counters, A and B, and
