@@ -259,7 +259,13 @@ sumsOfHelper (x:xs) currsum = (x + currsum):sumsOfHelper xs (x + currsum)
 --     ==> 0
 
 mymaximum :: (a -> a -> Ordering) -> a -> [a] -> a
-mymaximum cmp def xs = undefined
+mymaximum _ def [] = def
+mymaximum cmp def (x:xs) = returnLarger cmp x (mymaximum cmp x xs)
+
+returnLarger :: (a -> a -> Ordering) -> a -> a -> a
+returnLarger cmp a b
+    | cmp a b == GT = a
+    | otherwise = b
 
 -- Ex 18: define a version of map that takes a two-argument function
 -- and two lists. Example:
