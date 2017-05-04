@@ -189,13 +189,16 @@ powers n maxval = takeWhile (<=maxval) (map (n^) [0..])
 search :: (a -> a) -> (a -> Bool) -> a -> a
 search update check initial
     | check initial = initial
-    | otherwise = search update check (update initial)
+    | otherwise     = search update check (update initial)
 
 -- Ex 12: given numbers n and k, build the list of numbers n,n+1..k.
 -- Use recursion and the : operator to build the list.
 
 fromTo :: Int -> Int -> [Int]
-fromTo n k = undefined
+fromTo n k
+    | n > k = []
+    | n == k = [n]
+    | otherwise = n:fromTo (n + 1) k
 
 -- Ex 13: given i, build the list of sums [1, 1+2, 1+2+3, .., 1+2+..+i]
 --
