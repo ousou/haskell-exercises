@@ -216,7 +216,8 @@ sums i = take i (map (sum . fromTo 1) [1..])
 --   mylast 0 [1,2,3] ==> 3
 
 mylast :: a -> [a] -> a
-mylast def xs = undefined
+mylast def [] = def
+mylast _ (x:xs) = mylast x xs
 
 -- Ex 15: define a function that checks if the given list is in
 -- increasing order. Use recursion and pattern matching. Don't use any
