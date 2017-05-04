@@ -312,7 +312,20 @@ map2 f (a:as) (b:bs) = f a b:map2 f as bs
 -- your interpreter correctly but weirdly :(
 
 interpreter :: [String] -> [String]
-interpreter commands = undefined
+interpreter commands = reverse (interpreterHelper 0 0 commands [])
+
+interpreterHelper :: Int -> Int -> [String] -> [String] -> [String]
+interpreterHelper a b commands output
+    | null commands = output
+    | command == "incA" = interpreterHelper (a + 1) b restcommands output
+    | command == "incB" = interpreterHelper a (b + 1) restcommands output
+    | command == "decA" = interpreterHelper (a - 1) b restcommands output
+    | command == "decB" = interpreterHelper a (b - 1) restcommands output
+    | command == "printA" = interpreterHelper a b restcommands (show a : output)
+    | command == "printB" = interpreterHelper a b restcommands (show b : output)
+    | otherwise = interpreterHelper a b restcommands output
+    where command = head commands
+          restcommands = tail commands
 
 -- Ex 20: write a function that finds the n first squares (numbers of
 -- the form x*x) that start and end with the same digit.
