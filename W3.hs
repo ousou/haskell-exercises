@@ -14,7 +14,9 @@ module W3 where
 -- Remember that integer division can be done with the div function.
 
 safeDiv :: Integer -> Integer -> Maybe Integer
-safeDiv x y = undefined
+safeDiv x y
+    | y == 0 = Nothing
+    | otherwise = Just (div x y)
 
 -- Ex 2: another variant of safe division. This time a succesful
 -- division should be returned as
@@ -24,7 +26,9 @@ safeDiv x y = undefined
 -- (replace 1234 with the value of x).
 
 eitherDiv :: Integer -> Integer -> Either String Integer
-eitherDiv x y = undefined
+eitherDiv x y
+    | y == 0 = Left (show x ++ "/0")
+    | otherwise = Right (div x y)
 
 -- Ex 3: implement the function mapMaybe, which works a bit like a
 -- combined map & filter.
