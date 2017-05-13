@@ -91,28 +91,29 @@ fromLeft (Right _) = error "is Right, not Left"
 -- Also define a Person value fred, and the functions getAge, getname,
 -- setAge and setName (see below).
 
-data Person = PersonUndefined
-  deriving Show
+data Person = Person { age :: Int
+              , name :: String
+              } deriving Show
 
 -- fred is a person whose name is Fred and age is 90
 fred :: Person
-fred = undefined
+fred = Person {age=90, name="Fred"}
 
 -- getName returns the name of the person
 getName :: Person -> String
-getName p = undefined
+getName = name
 
 -- getAge returns the age of the person
 getAge :: Person -> Int
-getAge p = undefined
+getAge = age
 
 -- setName takes a person and returns a new person with the name changed
 setName :: String -> Person -> Person
-setName name p = undefined
+setName name p = Person {age=getAge p, name=name}
 
 -- setAge does likewise for age
 setAge :: Int -> Person -> Person
-setAge age p = undefined
+setAge age p = Person {age=age, name=getName p}
 
 
 -- Ex 6: define a datatype TwoCounters which contains two Int
