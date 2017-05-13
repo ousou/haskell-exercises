@@ -68,7 +68,22 @@ mapMaybe f xs = map fromJust (filter (/= Nothing) (map f xs))
 --     ==> ([1,0],[True,False])
 
 classify :: [Either a b] -> ([a],[b])
-classify es = undefined
+classify es = (map fromLeft (filter isLeft es), map fromRight (filter isRight es))
+
+isLeft :: Either a b -> Bool
+isLeft (Left _) = True
+isLeft (Right _) = False
+
+isRight :: Either a b -> Bool
+isRight = not . isLeft
+
+fromRight :: Either a b -> b
+fromRight (Right b) = b
+fromRight (Left _) = error "is Left, not Right"
+
+fromLeft :: Either a b -> a
+fromLeft (Left a) = a
+fromLeft (Right _) = error "is Right, not Left"
 
 -- Ex 5: define a datatype Person, which should contain the age (an
 -- Int) and the name (a String) of a person.
