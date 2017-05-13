@@ -92,8 +92,8 @@ fromLeft (Right _) = error "is Right, not Left"
 -- setAge and setName (see below).
 
 data Person = Person { age :: Int
-              , name :: String
-              } deriving Show
+                     , name :: String
+                     } deriving Show
 
 -- fred is a person whose name is Fred and age is 90
 fred :: Person
@@ -127,27 +127,29 @@ setAge age p = Person {age=age, name=getName p}
 -- getB (incB (incA zeros))
 --   ==> 1
 
-data TwoCounters = Undefined
+data TwoCounters = TwoCounters { a :: Int
+                               , b :: Int
+                               }
 
 -- zeros is a TwoCounters value with both counters initialized to 0
 zeros :: TwoCounters
-zeros = undefined
+zeros = TwoCounters {a=0, b=0}
 
 -- getA returns the value of the "A" counter
 getA :: TwoCounters -> Int
-getA tc = undefined
+getA = a
 
 -- getB returns the value of the "B" counter
 getB :: TwoCounters -> Int
-getB tc = undefined
+getB = b
 
 -- incA increases the value of the "A" counter by one
 incA :: TwoCounters -> TwoCounters
-incA tc = undefined
+incA tc = TwoCounters {a=a tc + 1, b=b tc}
 
 -- incB does likewise for the "B" counter
 incB :: TwoCounters -> TwoCounters
-incB tc = undefined
+incB tc = TwoCounters {a=a tc, b=b tc + 1}
 
 -- Ex 7: define a datatype UpDown that represents a counter that can
 -- either be in incresing or decreasing mode. Also implement the
