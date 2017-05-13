@@ -209,7 +209,8 @@ valAtRoot Leaf = Nothing
 -- constructors in it
 
 treeSize :: Tree a -> Int
-treeSize t = undefined
+treeSize Leaf = 0
+treeSize (Node _ lt rt) = 1 + treeSize lt + treeSize rt
 
 -- Ex 10: get the leftmost value in the tree. The return value is
 -- Maybe a because the tree might be empty.
