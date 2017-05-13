@@ -127,29 +127,29 @@ setAge age p = Person {age=age, name=getName p}
 -- getB (incB (incA zeros))
 --   ==> 1
 
-data TwoCounters = TwoCounters { a :: Int
-                               , b :: Int
+data TwoCounters = TwoCounters { aCount :: Int
+                               , bCount :: Int
                                }
 
 -- zeros is a TwoCounters value with both counters initialized to 0
 zeros :: TwoCounters
-zeros = TwoCounters {a=0, b=0}
+zeros = TwoCounters {aCount=0, bCount=0}
 
 -- getA returns the value of the "A" counter
 getA :: TwoCounters -> Int
-getA = a
+getA = aCount
 
 -- getB returns the value of the "B" counter
 getB :: TwoCounters -> Int
-getB = b
+getB = bCount
 
 -- incA increases the value of the "A" counter by one
 incA :: TwoCounters -> TwoCounters
-incA tc = TwoCounters {a=a tc + 1, b=b tc}
+incA tc = TwoCounters {aCount=aCount tc + 1, bCount=bCount tc}
 
 -- incB does likewise for the "B" counter
 incB :: TwoCounters -> TwoCounters
-incB tc = TwoCounters {a=a tc, b=b tc + 1}
+incB tc = TwoCounters {aCount=aCount tc, bCount=bCount tc + 1}
 
 -- Ex 7: define a datatype UpDown that represents a counter that can
 -- either be in incresing or decreasing mode. Also implement the
@@ -202,7 +202,8 @@ data Tree a = Leaf | Node a (Tree a) (Tree a)
 -- because the tree might be empty (i.e. just a Leaf)
 
 valAtRoot :: Tree a -> Maybe a
-valAtRoot t = undefined
+valAtRoot (Node a _ _) = Just a
+valAtRoot Leaf = Nothing
 
 -- Ex 9: compute the size of a tree, that is, the number of Node
 -- constructors in it
