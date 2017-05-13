@@ -228,7 +228,20 @@ treeSize (Node _ lt rt) = 1 + treeSize lt + treeSize rt
 --   ==> Just 2
 
 leftest :: Tree a -> Maybe a
-leftest t = undefined
+leftest Leaf = Nothing
+leftest (Node a lt rt) = Just (leftestNonEmpty (Node a lt rt))
+
+leftestNonEmpty :: Tree a -> a
+leftestNonEmpty (Node a lt rt)
+    | isNothing next = a
+    | otherwise = leftestNonEmpty (Node (fromJust next) (getLeftTree lt) rt)
+      where next = valAtRoot lt
+leftestNonEmpty Leaf = error "Tree is empty"
+
+getLeftTree :: Tree a -> Tree a
+getLeftTree Leaf = error "Tree is empty"
+getLeftTree (Node _ lt _) = lt
+
 
 -- Ex 11: implement map for trees.
 --
