@@ -287,13 +287,13 @@ mysum :: [Int] -> Int
 mysum is = foldr sumf 0 is
 
 sumf :: Int -> Int -> Int
-sumf x y = undefined
+sumf = (+)
 
 mylength :: [a] -> Int
 mylength xs = foldr lengthf 0 xs
 
 lengthf :: a -> Int -> Int
-lengthf x y = undefined
+lengthf _ y = y + 1
 
 -- Ex 15: implement the function foldTree that works like foldr, but
 -- for Trees.
