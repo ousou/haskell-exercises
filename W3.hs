@@ -13,6 +13,8 @@ module W3 where
 --
 -- Remember that integer division can be done with the div function.
 
+import Data.Maybe
+
 safeDiv :: Integer -> Integer -> Maybe Integer
 safeDiv x y
     | y == 0 = Nothing
@@ -50,8 +52,8 @@ eitherDiv x y
 -- mapMaybe (\x -> Nothing) [1,2,3]
 --   ==> []
 
-mapMaybe :: (a -> Maybe b) -> [a] -> [b]
-mapMaybe f xs = undefined
+mapMaybe :: (Eq b) => (a -> Maybe b) -> [a] -> [b]
+mapMaybe f xs = map fromJust (filter (/= Nothing) (map f xs))
 
 -- Ex 4: define the function classify that takes a list of Either a b
 -- values and returns a list of the Left values and a list of the
