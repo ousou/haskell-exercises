@@ -365,7 +365,8 @@ treeLeaves :: Tree a -> Int
 treeLeaves t = foldTree leaft 1 t
 
 foldTree :: (a -> b -> b -> b) -> b -> Tree a -> b
-foldTree f x t = undefined
+foldTree _ x Leaf = x
+foldTree f x (Node a lt rt) = foldTree f (f a (foldTree f x lt) (foldTree f x rt)) Leaf
 
 -- Ex 16: You'll find a Color datatype below. It has the three basic
 -- colours Red, Green and Blue, and two color transformations, Mix and
