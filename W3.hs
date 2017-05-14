@@ -306,7 +306,8 @@ insertL x (Node a lt rt) = Node a (insertL x lt) rt
 
 
 measure :: Tree a -> Tree Int
-measure t = undefined
+measure Leaf = Leaf
+measure (Node a lt rt) = Node (treeSize (Node a lt rt)) (measure lt) (measure rt)
 
 -- Ex 14: the standard library function
 --   foldr :: (a -> b -> b) -> b -> [a] -> b
