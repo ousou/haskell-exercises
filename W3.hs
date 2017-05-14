@@ -252,7 +252,8 @@ getLeftTree (Node _ lt _) = lt
 --   ==> (Node 2 (Node 3 Leaf Leaf) (Node 4 Leaf Leaf))
 
 mapTree :: (a -> b) -> Tree a -> Tree b
-mapTree f t = undefined
+mapTree _ Leaf = Leaf
+mapTree f (Node a lt rt) = Node (f a) (mapTree f lt) (mapTree f rt)
 
 -- Ex 12: insert the given value into the leftmost possible place. You
 -- need to return a new tree since the function is pure.
