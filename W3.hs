@@ -400,4 +400,8 @@ data Color = Red | Green | Blue | Mix Color Color | Darken Double Color
   deriving Show
 
 rgb :: Color -> [Double]
-rgb col = undefined
+rgb Red = [1,0,0]
+rgb Green = [0,1,0]
+rgb Blue = [0,0,1]
+rgb (Mix a b) = map (min 1) (zipWith (+) (rgb a) (rgb b))
+rgb (Darken d c) = map (max 0 . (* (1 - d))) (rgb c)
