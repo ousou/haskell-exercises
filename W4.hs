@@ -41,13 +41,17 @@ greet name = putStrLn ("HELLO " ++ name)
 -- Try to use the greet operation in your solution.
 
 greet2 :: IO ()
-greet2 = undefined
+greet2 = do
+    name <- getLine
+    greet name
 
 -- Ex 4: define the IO operation readWords n which reads n lines from
 -- the user and returns them in alphabetical order.
 
 readWords :: Int -> IO [String]
-readWords n = undefined
+readWords n = do
+    enteredWords <- forM [1..n] (const getLine)
+    return (sort enteredWords)
 
 -- Ex 5: define the IO operation readUntil f, which reads lines from
 -- the user and returns them as a list. Reading is stopped when f
@@ -55,7 +59,14 @@ readWords n = undefined
 -- returned.)
 
 readUntil :: (String -> Bool) -> IO [String]
-readUntil f = undefined
+readUntil f = readUntilHelper f []
+
+readUntilHelper :: (String -> Bool) -> [String] -> IO [String]
+readUntilHelper f readLines = do
+    line <- getLine
+    if f line
+        then return readLines
+        else readUntilHelper f (readLines ++ [line])
 
 -- Ex 6: given n, print the n first fibonacci numbers, one per line
 
