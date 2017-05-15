@@ -71,7 +71,10 @@ readUntilHelper f readLines = do
 -- Ex 6: given n, print the n first fibonacci numbers, one per line
 
 printFibs :: Int -> IO ()
-printFibs n = undefined
+printFibs n = mapM_ (\k -> print (fibs !! k)) [1..n]
+
+fibs :: [Integer]
+fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 
 -- Ex 7: isums n should read n numbers from the user and return their
 -- sum. Additionally, after each read number, the sum up to that
