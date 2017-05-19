@@ -123,7 +123,10 @@ whenM cond op = do
 -- This prints YAY! as long as the user keeps answering Y
 
 while :: IO Bool -> IO () -> IO ()
-while cond op = undefined
+while cond op = do
+    boolCond <- cond
+    when boolCond op
+    when boolCond $ while cond op
 
 -- Ex 10: given a string and an IO operation, print the string, run
 -- the IO operation, print the string again, and finally return what
