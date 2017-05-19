@@ -81,7 +81,23 @@ fibs = 0 : 1 : zipWith (+) fibs (tail fibs)
 -- number should be printed.
 
 isums :: Int -> IO Int
-isums n = undefined
+isums n = isumsHelper n 0
+
+isumsHelper :: Int -> Int -> IO Int
+isumsHelper 0 _ =
+    return 0
+isumsHelper n currentSum = do
+    this <- getInt
+    let newSum = (this + currentSum)
+    print newSum
+    rest <- isumsHelper (n - 1) newSum
+    return (this + rest)
+
+getInt :: IO Int
+getInt = do
+    input <- getLine
+    let number = read input :: Int
+    return number
 
 -- Ex 8: when is a useful function, but its first argument has type
 -- Bool. Write a function that behaves similarly but the first
