@@ -104,7 +104,9 @@ getInt = do
 -- argument has type IO Bool.
 
 whenM :: IO Bool -> IO () -> IO ()
-whenM cond op = undefined
+whenM cond op = do
+    boolCond <- cond
+    when boolCond op
 
 -- Ex 9: implement the while loop. while condition operation should
 -- run operation as long as condition returns True.
