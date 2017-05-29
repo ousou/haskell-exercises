@@ -164,13 +164,21 @@ mymapM_ f l = do
     _ <- f (head l)
     mymapM_ f (tail l)
 
+mymapM :: (a -> IO b) -> [a] -> IO [b]
+mymapM _ [] = return []
+mymapM f l = mymapMHelper f l []
 
+mymapMHelper :: (a -> IO b) -> [a] -> [b] -> IO [b]
+mymapMHelper _ [] r = return (reverse r)
+mymapMHelper f l r = do
+    result <- f (head l)
+    mymapMHelper f (tail l) (result:r)
 
 -- Ex 12: Reimplement the function forM using pattern matching and
 -- recursion.
 
 myforM :: [a] -> (a -> IO b) -> IO [b]
-myforM as f = undefined
+myforM = flip mymapM
 
 -- Ex 13: sometimes one bumps into IO operations that return IO
 -- operations. For instance the type IO (IO Int) means an IO operation
