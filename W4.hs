@@ -251,7 +251,9 @@ compose op1 op2 c = do
 --  4
 
 mkCounter :: IO (IO (), IO Int)
-mkCounter = undefined
+mkCounter = do
+    counter <- newIORef (0 :: Int)
+    return (modifyIORef counter (+1), readIORef counter)
 
 -- Ex 16: fetch from the given file (Handle) the lines with the given
 -- indices. Line indexing starts from 1. You can assume that the
