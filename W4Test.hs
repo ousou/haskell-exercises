@@ -12,7 +12,7 @@ import System.Directory
 import Test.QuickCheck hiding (Result,reason,(===))
 import Test.QuickCheck.Monadic
 
-main = testExsArgs tests stdArgs {maxSize = 40, maxSuccess = 40}
+main = testExsArgs tests stdArgs {maxSize = 35, maxSuccess = 35}
 
 tests = [[ex1_hello]
         ,[ex2_greet]
