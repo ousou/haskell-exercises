@@ -203,7 +203,9 @@ myforM = flip mymapM
 --        replicateM l getLine
 
 tuplaKutsu :: IO (IO a) -> IO a
-tuplaKutsu op = undefined
+tuplaKutsu op = do
+    result <- op
+    result
 
 -- Ex 14: implement the analogue of function composition (the (.)
 -- operator) for IO operations. That is, take an operation op1 of type
