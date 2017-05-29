@@ -159,7 +159,12 @@ debug s op = do
 -- value in the list.
 
 mymapM_ :: (a -> IO b) -> [a] -> IO ()
-mymapM_ = undefined
+mymapM_ _ [] = return ()
+mymapM_ f l = do
+    _ <- f (head l)
+    mymapM_ f (tail l)
+
+
 
 -- Ex 12: Reimplement the function forM using pattern matching and
 -- recursion.
