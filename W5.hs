@@ -199,7 +199,9 @@ data List a = Empty | LNode a (List a)
   deriving Show
 
 instance Eq a => Eq (List a) where
-  (==) = error "implement me"
+  Empty == Empty = True
+  LNode x a == LNode y b = (x == y) && (a == b)
+  _ == _ = False
 
 -- Ex 13: start by reading a bit about Functors. A Functor is a thing
 -- you can "map" over, e.g. lists, Maybes.
