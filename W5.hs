@@ -249,6 +249,7 @@ runFun :: Fun a -> Int -> a
 runFun (Fun f) x = f x
 
 instance Functor Fun where
+  fmap f (Fun g) = Fun (f . g)
 
 -- Ex 17: this and the next exercise serve as an introduction for the
 -- next week.
