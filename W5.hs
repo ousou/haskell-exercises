@@ -2,6 +2,7 @@ module W5 where
 
 import System.Random
 import Data.List
+import Data.Maybe
 
 -- Week 5:
 --  - operators
@@ -62,7 +63,19 @@ allEqual (x:xs) = (x == head xs) && allEqual xs
 secondSmallest :: Ord a => [a] -> Maybe a
 secondSmallest [] = Nothing
 secondSmallest [x] = Nothing
-secondSmallest xs = Just ((sort xs) !! 1)
+-- secondSmallest xs = Just ((sort xs) !! 1)
+secondSmallest xs = Just (secondSmallestHelper Nothing Nothing xs)
+
+
+secondSmallestHelper :: Ord a => Maybe a -> Maybe a -> [a] -> a
+secondSmallestHelper _ second [] = fromJust second
+secondSmallestHelper first second xs
+    | first == Nothing = secondSmallestHelper (Just (head xs)) Nothing (tail xs)
+    | (second == Nothing) && (head xs) < (fromJust first) = secondSmallestHelper (Just (head xs)) first (tail xs)
+    | (second == Nothing) && (head xs) >= (fromJust first) = secondSmallestHelper first (Just (head xs)) (tail xs)
+    | (head xs) < (fromJust first) = secondSmallestHelper (Just (head xs)) first (tail xs)
+    | (head xs) < (fromJust second) = secondSmallestHelper first (Just (head xs)) (tail xs)
+    | otherwise = secondSmallestHelper first second (tail xs)
 
 -- Ex 4: find how two lists differ from each other. If they have
 -- different lengths, return
