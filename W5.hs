@@ -60,7 +60,9 @@ allEqual (x:xs) = (x == head xs) && allEqual xs
 -- secondSmallest [5,3,7,2,3,1]  ==>  Just 2
 
 secondSmallest :: Ord a => [a] -> Maybe a
-secondSmallest xs = undefined
+secondSmallest [] = Nothing
+secondSmallest [x] = Nothing
+secondSmallest xs = Just ((sort xs) !! 1)
 
 -- Ex 4: find how two lists differ from each other. If they have
 -- different lengths, return
