@@ -133,10 +133,13 @@ instance Eq Foo where
 -- Ex 7: implement an Ord instance for Foo so that Quux < Bar < Xyzzy
 
 instance Ord Foo where
-  compare = error "implement me?"
-  (<=) = error "and me?"
-  min = error "and me?"
-  max = error "and me?"
+  compare Quux Bar = LT
+  compare Bar Quux = GT
+  compare Quux Xyzzy = LT
+  compare Xyzzy Quux = GT
+  compare Bar Xyzzy = LT
+  compare Xyzzy Bar = GT
+  compare _ _ = EQ
 
 -- Ex 8: here is a type for a 3d vector. Implement an Eq instance for it.
 
