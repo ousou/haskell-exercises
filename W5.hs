@@ -46,7 +46,9 @@ n *! val = take n (repeat val)
 -- you remove the Eq a => constraint from the type!
 
 allEqual :: Eq a => [a] -> Bool
-allEqual xs = undefined
+allEqual [] = True
+allEqual [x] = True
+allEqual (x:xs) = (x == head xs) && allEqual xs
 
 -- Ex 3: implement the function secondSmallest that returns the second
 -- smallest value in the list, or Nothing if there is no such value.
