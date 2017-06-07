@@ -226,7 +226,9 @@ data Result a = MkResult a | NoResult | Failure String
   deriving (Show,Eq)
 
 instance Functor Result where
-  fmap f result = error "implement me"
+  fmap f (MkResult a) = MkResult (f a)
+  fmap f NoResult = NoResult
+  fmap f (Failure x) = Failure x
 
 -- Ex 15: Implement the instance Functor List (for the datatype List
 -- from ex 11)
