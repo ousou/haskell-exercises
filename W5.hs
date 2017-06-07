@@ -187,7 +187,9 @@ data ITree = ILeaf | INode Int ITree ITree
   deriving Show
 
 instance Eq ITree where
-  (==) = error "implement me"
+  ILeaf == ILeaf = True
+  (INode a alt art) == (INode b blt brt) = (a == b) && (alt == blt) && (art == brt)
+  _ == _ = False
 
 -- Ex 12: here is a list type parameterized over the type it contains.
 -- Implement an instance "Eq a => Eq (List a)" that compares elements
