@@ -178,8 +178,8 @@ instance Num Vector where
 -- freqs [False,False,False,True]
 --   ==> [(3,False),(1,True)]
 
-freqs :: Eq a => [a] -> [(Int,a)]
-freqs xs = undefined
+freqs :: Ord a => [a] -> [(Int,a)]
+freqs xs = zipWith (\a b -> (a,b)) (map length (group . sort $ xs)) (nub . sort $ xs)
 
 -- Ex 11: implement an Eq instance for the following binary tree type
 
