@@ -280,7 +280,11 @@ instance Functor Fun where
 --  (True,True,False)
 
 threeRandom :: (Random a, RandomGen g) => g -> (a,a,a)
-threeRandom g = undefined
+threeRandom g = (fst a, fst b, fst c)
+  where
+    a = random g
+    b = random (snd a)
+    c = random (snd b)
 
 -- Ex 18: given a Tree (same type as on Week 3), randomize the
 -- contents of the tree.
