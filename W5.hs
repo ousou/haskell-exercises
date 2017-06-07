@@ -95,7 +95,16 @@ secondSmallestHelper first second xs
 --  findDifference [0,0,0] [0,0,0,0]
 --    ==> Just "3 /= 4"
 
-findDifference = undefined
+findDifference :: Eq a => Show a => [a] -> [a] -> Maybe String
+findDifference xs ys
+    | (length xs) /= (length ys) = Just (show (length xs) ++ " /= " ++ show (length ys))
+    | otherwise = checkElementEquality xs ys
+
+checkElementEquality :: Eq a => Show a => [a] -> [a] -> Maybe String
+checkElementEquality [] [] = Nothing
+checkElementEquality (x:xs) (y:ys)
+    | x /= y = Just (show x ++ " /= " ++ show y)
+    | otherwise = checkElementEquality xs ys
 
 -- Ex 5: compute the average of a list of values of the Fractional
 -- class.
