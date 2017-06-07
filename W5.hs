@@ -116,7 +116,8 @@ checkElementEquality (x:xs) (y:ys)
 -- length to a Fractional
 
 average :: Fractional a => [a] -> a
-average xs = undefined
+average [] = 0
+average xs = (sum xs) / (fromIntegral (length xs))
 
 -- Ex 6: define an Eq instance for the type Foo below.
 
