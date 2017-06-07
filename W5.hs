@@ -147,7 +147,7 @@ data Vector = Vector Integer Integer Integer
   deriving Show
 
 instance Eq Vector where
-  (==) = error "implement me"
+  (Vector a b c) == (Vector x y z) = (a == x) && (b == y) && (c == z)
 
 -- Ex 9: implementa Num instance for Vector such that all the
 -- arithmetic operations work componentwise.
