@@ -162,6 +162,12 @@ instance Eq Vector where
 -- signum (Vector (-1) 2 (-3)) ==> Vector (-1) 1 (-1)
 
 instance Num Vector where
+  (Vector a b c) + (Vector x y z) = Vector (a + x) (b + y) (c + z)
+  (Vector a b c) * (Vector x y z) = Vector (a * x) (b * y) (c * z)
+  negate (Vector a b c) = Vector (negate a) (negate b) (negate c)
+  abs (Vector a b c) = Vector (abs a) (abs b) (abs c)
+  signum (Vector a b c) = Vector (signum a) (signum b) (signum c)
+  fromInteger a = Vector a a a
 
 -- Ex 10: compute how many times each value in the list occurs. Return
 -- the frequencies as a list of (frequency,value) pairs.
