@@ -234,6 +234,8 @@ instance Functor Result where
 -- from ex 11)
 
 instance Functor List where
+  fmap f Empty = Empty
+  fmap f (LNode a x) = LNode (f a) (fmap f x)
 
 -- Ex 16: Fun a is a type that wraps a function Int -> a. Implement a
 -- Functor instance for it.
