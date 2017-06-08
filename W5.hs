@@ -308,4 +308,15 @@ data Tree a = Leaf | Node a (Tree a) (Tree a)
   deriving Show
 
 randomizeTree :: (Random a, RandomGen g) => Tree b -> g -> (Tree a,g)
-randomizeTree t g = undefined
+randomizeTree Leaf g = (Leaf, g)
+randomizeTree (Node a lt rt) g = ((Node res randlt randrt), lastgen)
+  where
+    randres = random g
+    res = fst randres
+    newrand = snd randres
+    randltres = randomizeTree lt newrand
+    randlt = fst randltres
+    sndrand = snd randltres
+    randrtres = randomizeTree rt sndrand
+    randrt = fst randrtres
+    lastgen = snd randrtres
