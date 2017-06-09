@@ -30,8 +30,8 @@ tests = [[property ex1_ok, property ex1_fail]
         ,[property ex13]
         ,[property ex14_sumBounded_ok, property ex14_sumBounded_fail
          ,property ex14_sumNotTwice]
-        ,[property ex15]
-        ,[property ex16_1, property ex16_2, property ex16_stress]
+--        ,[property ex15]
+--        ,[property ex16_1, property ex16_2, property ex16_stress]
         ]
 
 -- -- -- -- -- -- -- --
@@ -285,48 +285,3 @@ ex14_sumBounded_fail =
 
 ex14_sumNotTwice is =
   sumNotTwice is === sum (nub is)
-
-ex15 =
-  let op :: Int -> Result Int
-      op i = if i>3 then fail "big" else return (i+1)
-      s = "let op i = if (i>3) then fail \"big\" else return (i+1) in "
-  in conjoin [counterexample' (s++" MkResult 1 >>= op") $
-              (MkResult 1 >>= op) === MkResult 2,
-              counterexample' (s++" MkResult 4 >>= op") $
-              (MkResult 4 >>= op) === Failure "big",
-              counterexample' (s++" Fail \"foo\" >>= op") $
-              (Failure "foo" >>= op) === Failure "foo",
-              counterexample' (s++" NoResult >>= op") $
-              (NoResult >>= op) === NoResult]
-
-ex16_1 =
-  do i <- choose (0,10)
-     let op = putSL i >> getSL >>= \i -> msgSL (show i)
-         s = "putSL "++show i++" >> getSL >>= \\i -> msgSL (show i)"
-     counterexample' ("runSL ("++s++") 1") $ runSL op 1 === ((),i,[show i])
-
-ex16_2 =
-  do msg <- word
-     msg2 <- word
-     i <- choose (0,10)
-     j <- choose (0,10)
-     let op = do msgSL msg
-                 x <- getSL
-                 msgSL (msg2++show x)
-                 putSL (x+i)
-                 return x
-         s = "op = \ndo msgSL "++show msg++"\n   x <- getSL\n   msgSL ("++show msg2++"++show x)\n   putSL (x+"++show i++")\n   return x"
-     counterexample' (s++"\nrunSL op "++show j) $ runSL op j === (j,j+i,[msg,msg2++show j])
-
-ex16_stress =
-  arbitrary >>= \o ->
-  return . shrinking shrink o $ \ops ->
-  let m (Left i) = modifySL (+i)
-      m (Right s) = msgSL s
-      s (Left i) = "modifySL (+"++show i++")"
-      s (Right m) = "msgSL "++show m
-      op = mapM_ m ops
-      desc = "runSL ("++intercalate " >> " (map s ops)++") 0"
-      (incs,msgs) = partitionEithers ops
-      state = sum incs
-  in counterexample' desc $ runSL op 0 === ((),state,msgs)
