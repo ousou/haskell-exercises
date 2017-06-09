@@ -142,7 +142,13 @@ takeOnlyIfEnough i l
 --    Nothing
 
 selectSum :: Num a => [a] -> [Int] -> Maybe a
-selectSum xs is = undefined
+selectSum xs is = foldl (\acc x -> (+) <$> acc <*> (safeIndex xs x)) (Just 0) is
+
+safeIndex :: [a] -> Int -> Maybe a
+safeIndex l i
+    | i < 0 = Nothing
+    | i >= (length l) = Nothing
+    | otherwise = Just (l !! i)
 
 -- Ex 4: below you'll find the implementation of a Logger monad and
 -- some examples of its use.
