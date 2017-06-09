@@ -2,6 +2,7 @@ module W6 where
 
 import Control.Monad
 import Control.Monad.State
+import Control.Applicative
 import Data.Char
 
 -- Week 6: Monads
@@ -150,6 +151,13 @@ instance Monad Logger where
   return x = Logger [] x
   Logger la a >>= f = Logger (la++lb) b
     where Logger lb b = f a
+
+instance Functor Logger where
+  fmap = liftM
+
+instance Applicative Logger where
+  pure  = return
+  (<*>) = ap
 
 msg :: String -> Logger ()
 msg s = Logger [s] ()
