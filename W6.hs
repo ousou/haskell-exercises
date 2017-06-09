@@ -69,7 +69,10 @@ readNames s =
 -- (NB! There are obviously other corner cases like the inputs " " and
 -- "a b c", but you don't need to worry about those here)
 split :: String -> Maybe (String,String)
-split s = undefined
+split s
+    | (length names) == 2 = Just (names !! 0, names !! 1)
+    | otherwise = Nothing
+      where names = (words s)
 
 -- checkNumber should take a pair of two strings and return then
 -- unchanged if they don't contain numbers. Otherwise Nothing is
