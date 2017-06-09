@@ -117,7 +117,11 @@ startsWithUpper = isUpper . head
 --    ==> Nothing
 
 myTake :: Maybe Int -> Maybe [a] -> Maybe [a]
-myTake mi ml = undefined
+myTake Nothing _ = Nothing
+myTake _ Nothing = Nothing
+myTake (Just n) (Just xs)
+    | n > (length xs) = Nothing
+    | otherwise = Just (take n xs)
 
 -- Ex 3: given a list of indices and a list of values, return the sum
 -- of the values in the given indices. You should fail if any of the
