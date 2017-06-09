@@ -2,6 +2,7 @@ module W6 where
 
 import Control.Monad
 import Control.Monad.State
+import Control.Applicative
 import Data.Char
 
 -- Week 6: Monads
@@ -149,8 +150,14 @@ selectSum xs is = undefined
 data Logger a = Logger [String] a
   deriving Show
 
+instance Functor Logger where
+  fmap = liftM
+
+instance Applicative Logger where
+  pure  = Logger []
+  (<*>) = ap
+
 instance Monad Logger where
-  return x = Logger [] x
   Logger la a >>= f = Logger (la++lb) b
     where Logger lb b = f a
 
