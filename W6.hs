@@ -147,17 +147,16 @@ selectSum xs is = undefined
 data Logger a = Logger [String] a
   deriving Show
 
-instance Monad Logger where
-  return x = Logger [] x
-  Logger la a >>= f = Logger (la++lb) b
-    where Logger lb b = f a
-
 instance Functor Logger where
   fmap = liftM
 
 instance Applicative Logger where
-  pure  = return
+  pure  = Logger []
   (<*>) = ap
+
+instance Monad Logger where
+  Logger la a >>= f = Logger (la++lb) b
+    where Logger lb b = f a
 
 msg :: String -> Logger ()
 msg s = Logger [s] ()
