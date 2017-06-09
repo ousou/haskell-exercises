@@ -79,13 +79,23 @@ split s
 -- unchanged if they don't contain numbers. Otherwise Nothing is
 -- returned.
 checkNumber :: (String, String) -> Maybe (String, String)
-checkNumber (for,sur) = undefined
+checkNumber (for,sur)
+    | hasNoDigits for && hasNoDigits sur = Just (for, sur)
+    | otherwise = Nothing
+
+hasNoDigits :: String -> Bool
+hasNoDigits s = (filter isDigit s) == ""
 
 -- checkCapitals should take a pair of two strings and return them
 -- unchanged if both start with a capital letter. Otherwise Nothing is
 -- returned.
 checkCapitals :: (String, String) -> Maybe (String, String)
-checkCapitals (for,sur) = undefined
+checkCapitals (for,sur)
+    | startsWithUpper for && startsWithUpper sur = Just (for, sur)
+    | otherwise = Nothing
+
+startsWithUpper :: String -> Bool
+startsWithUpper = isUpper . head
 
 -- Ex 2: implement a function myTake that works just like take, but
 --   1. the arguments are of types Maybe Int and Maybe [a]
