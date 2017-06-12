@@ -210,7 +210,18 @@ productLog (x:xs) = do
 
 -- Implement this:
 binom :: Integer -> Integer -> Logger Integer
-binom n k = undefined
+binom n 0 = do
+  msg ("B(" ++ show n ++ ",0)")
+  return 1
+binom 0 k = do
+  msg ("B(0," ++ show k ++ ")")
+  return 0
+binom n k = do
+  a <- binom (n-1) (k-1)
+  b <- binom (n-1) k
+  msg ("B(" ++ show n ++ "," ++ show k ++ ")")
+  return (a + b)
+
 
 -- Ex 5: using the State monad, write the operation update that first
 -- multiplies the state by 2 and then adds one to it. The state has
