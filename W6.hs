@@ -232,7 +232,9 @@ binom n k = do
 --    ==> ((),7)
 
 update :: State Int ()
-update = undefined
+update = do
+  value <- get
+  put (value * 2 + 1)
 
 -- Ex 6: using the State monad, walk through a list and increment the
 -- state by one each time a given element is encountered. Additionally
