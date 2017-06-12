@@ -248,7 +248,14 @@ update = do
 --    ==> (5,2)
 
 lengthAndCount :: Eq a => a -> [a] -> State Int Int
-lengthAndCount x ys = undefined
+lengthAndCount _ [] = get
+lengthAndCount x (y:ys) = do
+    len <- lengthAndCount x ys
+    cnt <- get
+    if x == y
+      then put (cnt + 1)
+      else put cnt
+    return (len + 1)
 
 -- Ex 7: using a state of type [(a,Int)] we can keep track of the
 -- numbers of occurrences of elements of type a. For instance
