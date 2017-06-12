@@ -71,9 +71,9 @@ readNames s =
 -- "a b c", but you don't need to worry about those here)
 split :: String -> Maybe (String,String)
 split s
-    | (length names) == 2 = Just (names !! 0, names !! 1)
+    | length names == 2 = Just (head names, names !! 1)
     | otherwise = Nothing
-      where names = (words s)
+      where names = words s
 
 -- checkNumber should take a pair of two strings and return then
 -- unchanged if they don't contain numbers. Otherwise Nothing is
@@ -84,7 +84,7 @@ checkNumber (for,sur)
     | otherwise = Nothing
 
 hasNoDigits :: String -> Bool
-hasNoDigits s = (filter isDigit s) == ""
+hasNoDigits s = filter isDigit s == ""
 
 -- checkCapitals should take a pair of two strings and return them
 -- unchanged if both start with a capital letter. Otherwise Nothing is
@@ -118,11 +118,11 @@ startsWithUpper = isUpper . head
 
 myTake :: Maybe Int -> Maybe [a] -> Maybe [a]
 --myTake mi ml = mi >>= (\x -> Just (take x ml))
-myTake mi ml = mi >>= (\i -> ml >>= (\l -> takeOnlyIfEnough i l))
+myTake mi ml = mi >>= (\i -> ml >>= takeOnlyIfEnough i)
 
 takeOnlyIfEnough :: Int -> [a] -> Maybe [a]
 takeOnlyIfEnough i l
-    | i > (length l) = Nothing
+    | i > length l = Nothing
     | otherwise = Just (take i l)
 
 -- Ex 3: given a list of indices and a list of values, return the sum
@@ -142,12 +142,12 @@ takeOnlyIfEnough i l
 --    Nothing
 
 selectSum :: Num a => [a] -> [Int] -> Maybe a
-selectSum xs is = foldl (\acc x -> (+) <$> acc <*> (safeIndex xs x)) (Just 0) is
+selectSum xs = foldl (\acc x -> (+) <$> acc <*> safeIndex xs x) (Just 0)
 
 safeIndex :: [a] -> Int -> Maybe a
 safeIndex l i
     | i < 0 = Nothing
-    | i >= (length l) = Nothing
+    | i >= length l = Nothing
     | otherwise = Just (l !! i)
 
 -- Ex 4: below you'll find the implementation of a Logger monad and
